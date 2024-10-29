@@ -5,6 +5,7 @@
 
 * {
   font-family: Open Sans;
+  scroll-behavior: smooth;
 }
 
 .heroPage::after {
@@ -38,11 +39,14 @@
   left: 0;
   z-index: 10;
 }
-#dashboard {
+#dashboard,
+#heroPage {
   background-image: url("../public/hero.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  height: 100vh;
+  width: 100vw;
   background-clip: border-box;
 }
 
@@ -60,9 +64,15 @@
 }
 
 html {
-  scrollbar-width: smooth;
+  scroll-behavior: smooth;
 }
 
 .noScrollbar {
   scrollbar-width: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

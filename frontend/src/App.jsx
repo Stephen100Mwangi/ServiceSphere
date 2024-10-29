@@ -4,6 +4,7 @@ import Login from "./pages/Login"
 import HeroPage from "./pages/HeroPage"
 import PaymentDashboard from "./pages/PaymentDashboard"
 import Dashboard from "./pages/Dashboard"
+import Mpesa from "./pages/payments/Mpesa"
 const App = () => {
   return (
     <BrowserRouter>
@@ -13,6 +14,7 @@ const App = () => {
       <Route path="/hero" element={<HeroPage></HeroPage>}></Route>
       <Route path="/payment" element={<PaymentDashboard></PaymentDashboard>}></Route>
       <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
+      <Route path="/payment/mpesa" element={<Mpesa></Mpesa>}></Route>
      </Routes>
     </BrowserRouter>
   )

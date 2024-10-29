@@ -79,6 +79,7 @@ const registerUser = async (req, res) => {
       token,
     });
   } catch (error) {
+    
     console.error ('Registration error:', error);
     return res.status (500).json ({
       success: false,

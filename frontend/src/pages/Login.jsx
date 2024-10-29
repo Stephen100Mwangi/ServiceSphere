@@ -33,6 +33,7 @@ const Login = () => {
       }
 
       toast.success("User login successful")
+      sessionStorage.setItem("serviceToken",data.token)
       setTimeout(() => {
         navigate('/hero')        
       }, 1500);
@@ -57,8 +58,8 @@ const Login = () => {
           <input
             className="py-2 pl-3 pr-4"
             type="email"
-            name=""
-            id=""
+            name="email"
+            id="email"
             placeholder="someone@gmail.com"
             value={email}
             onChange={e => setEmail (e.target.value)}
@@ -69,8 +70,8 @@ const Login = () => {
           <input
             className="py-2 pl-3 pr-4"
             type="password"
-            name=""
-            id=""
+            name="password"
+            id="password"
             placeholder="********"
             value={password}
             onChange={e => setPassword (e.target.value)}
@@ -90,10 +91,6 @@ const Login = () => {
         {
           !loading &&  <Button clickFunction={loginUser} text={"Login"}></Button>
         }
-
-
-       
-
       </form>
     </div>
   );

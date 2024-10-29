@@ -35,11 +35,14 @@ const Register = () => {
         body: JSON.stringify({ username, email, password, confirmPassword }),
       });
       const data = await response.json();
+      
       if (!response.ok) {
         toast.error(data.message || "Error registering user");
+        return;
       }
 
       toast.success("Success creating user")
+      sessionStorage.setItem("serviceToken",data.token)
       setTimeout(() => {
         navigate("/hero")
       }, 1500);
@@ -64,8 +67,8 @@ const Register = () => {
               <input
                 className="py-2 pl-3 pr-4"
                 type="text"
-                name=""
-                id=""
+                name="username"
+                id="username"
                 placeholder="Input your username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -76,8 +79,8 @@ const Register = () => {
               <input
                 className="py-2 pl-3 pr-4"
                 type="email"
-                name=""
-                id=""
+                name="email"
+                id="email"
                 placeholder="someone@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -90,8 +93,8 @@ const Register = () => {
               <input
                 className="py-2 pl-3 pr-4"
                 type="password"
-                name=""
-                id=""
+                name="password"
+                id="password"
                 placeholder="********"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -102,8 +105,8 @@ const Register = () => {
               <input
                 className="py-2 pl-3 pr-4"
                 type="password"
-                name=""
-                id=""
+                name="confirmPassword"
+                id="confirmPassword"
                 placeholder="********"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}

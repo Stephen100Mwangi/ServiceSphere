@@ -170,7 +170,7 @@ const Dashboard = () => {
                 </ul>
                 <div className="flex justify-between w-full mx-auto">
                     <div>ServiceSphere 2024</div>
-                    <div className="flex items-center justify-center">
+                    <div className="flex items-center space-x-3 justify-center">
                         <LuCopyright></LuCopyright>
                         <p>All Rights Reserved</p>
                     </div>

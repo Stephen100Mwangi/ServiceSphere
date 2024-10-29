@@ -12,13 +12,8 @@ import ProductCard from "../components/ProductCard";
 const HeroPage = () => {
   return (
     <div className="h-fit w-full justify-center overflow-clip bg-back">
-      <div className="heroPage h-screen w-full relative">
+      <div id="heroPage" className="heroPage h-screen w-full relative">
         <Navbar></Navbar>
-        <img
-          src="./hero.svg"
-          className="w-[100%] z-10 h-[100%] object-cover absolute top-0 left-0"
-          alt=""
-        />
         <img
           src="./rectangle.svg"
           className="h-screen w-auto max-w-1/3 z-[900] absolute object-cover left-0 top-0 max-sm:hidden"
@@ -29,14 +24,15 @@ const HeroPage = () => {
           <div className="text-4xl font-semibold leading-tight max-w-64 max-sm:text-white">
             Bring Your <br /> Vision to Life
           </div>
-          <div className="font-light text-[16px] leading-9 max-sm:text-white">
+          <div className="font-light text-[16px] leading-9 max-sm:text-white max-w-[90%]">
             Join a vibrant community where you can connect with clients,
             showcase your unique projects, and earn commissions for delivering
-            exceptional services. Whether you’re a freelancer, a startup, or a
+            exceptional services. Whether you&apos;re a freelancer, a startup, or a
             seasoned professional, our platform empowers you to turn your
             passion into profit.
           </div>
-          <Button text={"Learn More"}></Button>
+        
+          <Button link={"https://www.dkut.ac.ke/"} text={"Learn More"}></Button>
         </div>
 
         <div className="absolute bottom-20 right-10 z-[1000] flex justify-center items-center space-x-5 max-sm:bottom-2 max-sm:right-4">
@@ -68,7 +64,7 @@ const HeroPage = () => {
         ></CustomButton>
       </div>
 
-      <div className="aboutUs h-screen p-8 flex flex-col space-y-28 bg-blue text-white max-sm:flex max-sm:flex-col max-sm:space-y-3 max-sm:px-5">
+      <div id="aboutUs" className="aboutUs h-screen p-8 flex flex-col space-y-28 bg-blue text-white max-sm:flex max-sm:flex-col max-sm:space-y-3 max-sm:px-5">
         <h1 className="text-3xl font-bold text-center">
           About <span>Us</span>
         </h1>
