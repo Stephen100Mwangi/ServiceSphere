@@ -12,6 +12,10 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate("")
 
+  const localUrl = import.meta.env.LOCAL_URL;
+  const remoteUrl = import.meta.env.REMOTE_URL;
+  const baseURL = remoteUrl || localUrl;
+
   const registerUser = async (e) => {
     e.preventDefault();
 
@@ -27,7 +31,7 @@ const Register = () => {
 
     try {
         setLoading(true)
-      const response = await fetch("http://localhost:4500/auth/register", {
+      const response = await fetch(`${baseURL}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

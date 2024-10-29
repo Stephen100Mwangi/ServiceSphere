@@ -10,6 +10,10 @@ const Login = () => {
   const [loading,setLoading] = useState(false)
   const navigate = useNavigate();
 
+  const localUrl = import.meta.env.LOCAL_URL;
+  const remoteUrl = import.meta.env.REMOTE_URL;
+  const baseURL = remoteUrl || localUrl;
+
   const loginUser = async (e) => {
     e.preventDefault();
     if (!email || !password) {
@@ -18,7 +22,7 @@ const Login = () => {
 
     try {
       setLoading(true)
-      const response = await fetch("http://localhost:4500/auth/login",{
+      const response = await fetch(`${baseURL}/auth/login`,{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
