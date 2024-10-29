@@ -1,0 +1,68 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,regular,500,600,700,800,300italic,italic,500italic,600italic,700italic,800italic);
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: Open Sans;
+}
+
+.heroPage::after {
+  content: "";
+  height: 100vh;
+  width: 100vw;
+  background: #00457c99;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+#paymentDashboard::after {
+  content: "";
+  height: 100vh;
+  width: 100vw;
+  background: #00457c90;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+#dashboard::after {
+  content: "";
+  height: 100vh;
+  width: 100vw;
+  background: #00457c90;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+#dashboard {
+  background-image: url("../public/hero.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-clip: border-box;
+}
+
+@media screen and (max-width: 640px) {
+  .heroPage::after {
+    content: "";
+    height: 100vh;
+    width: 100vw;
+    background: #00457c99;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 500;
+  }
+}
+
+html {
+  scrollbar-width: smooth;
+}
+
+.noScrollbar {
+  scrollbar-width: none;
+}
