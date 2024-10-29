@@ -80,13 +80,13 @@ const HeroPage = () => {
             </p>
           </div>
           <div className="w-1/2 flex justify-center items-center max-sm:w-full">
-            <img src="./bullsEye.svg" alt="" />
+            <img src="./bullsEye.svg" loading="lazy" alt="" />
           </div>
         </div>
       </div>
 
       <div className="ourStory h-screen w-full p-8 px-12 bg-black bg-opacity-15 flex justify-between items-center max-sm:flex-col max-sm:space-y-6 max-sm:px-5">
-        <img src="./story.svg" alt="" />
+        <img src="./story.svg" loading="lazy" alt="" />
         <div className="flex flex-col w-1/2 h-auto space-y-10 max-sm:w-full">
           <h1 className="text-2xl font-bold leading-relaxed">Our Story</h1>
           <p className="font-light text-[16px] leading-9">
@@ -171,7 +171,7 @@ const HeroPage = () => {
           ></Card>
         </div>
       </div>
-      <div id="productCards" className="plans flex p-24 justify-between bg-blue bg-opacity-15 max-sm:flex-wrap max-sm:space-y-10 max-sm:px-5 max-sm:justify-center">
+      <div id="productCards" className="flex w-full items-center p-24 justify-between bg-blue bg-opacity-15 max-sm:flex-wrap max-sm:space-y-10 max-sm:px-5 max-sm:justify-center">
         <ProductCard
           title="Basic Plan"
           price="$45"
