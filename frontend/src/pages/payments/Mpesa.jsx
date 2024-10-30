@@ -3,12 +3,17 @@ import OtpInput from "react-otp-input";
 import Button from "../../components/Button";
 import toast, { Toaster } from "react-hot-toast";
 import { FaDollarSign } from "react-icons/fa";
+import { LoaderIcon } from "react-hot-toast";
+import { CheckmarkIcon } from "react-hot-toast";
 
 const Mpesa = () => {
   const [KSH, setKSH] = useState(0);
   const [USD, setUSD] = useState(0);
   const [otp, setOtp] = useState("247247");
   const [otp2, setOtp2] = useState("0758725032");
+
+  const [paymentLoading,setPaymentLoading] = useState(false);
+  const [paymentSuccessful,setPaymentSuccessful] = useState(false);
 
   useEffect(()=>{
     const ksh2Dollars = async()=>{
@@ -68,15 +73,37 @@ const Mpesa = () => {
   const payNow = async (e) => {
     e.preventDefault();
 
-    if (!KSH || KSH <= 0) {
-      toast.error("Amount cannot be less than 0");
-    }
+    // if (!KSH || KSH <= 0) {
+    //   toast.error("Amount cannot be less than 0");
+    // }
+
+
+    setTimeout(() => {
+      setPaymentLoading(prev => !prev);
+      clearTimeout();
+    }, 1000);
+
+    setTimeout(() => {
+      setPaymentLoading(prev => !prev);
+    }, 2500);
+
+    setTimeout(() => {
+      setPaymentSuccessful(prev => !prev);
+    }, 2501);
+
+    setTimeout(() => {
+      setPaymentSuccessful(prev => !prev);
+      toast.success("Successful Transaction. Redirecting to another page")
+    }, 4500);
+
+    return;
   };
   return (
-    <div className="w-full h-screen bg-gray flex justify-center items-center">
+    <div className="w-full h-screen bg-gray flex space-x-5 justify-center items-center">
       <Toaster position="top-left"></Toaster>
 
-      <form className="flex flex-col justify-center items-center space-y-6 bg-back shadow-xl rounded-xl p-3 w-[400px]">
+      {
+        !paymentLoading && !paymentSuccessful && (<form className="flex flex-col justify-center items-center space-y-6 bg-back shadow-xl rounded-xl p-3 w-[400px]">
         <p className="w-full bg-green p-2 text-white text-center">
           Lipa Na MPESA
         </p>
@@ -135,7 +162,27 @@ const Mpesa = () => {
           bgColor={"green"}
           color={"white"}
         ></Button>
-      </form>
+      </form>)
+      }
+
+      
+
+      {
+        paymentLoading &&  (<div className="bg-green text-white p-5 rounded-md flex space-x-5 px-10 items-center justify-center">
+        <p className="text-white">Processing</p>
+        <LoaderIcon></LoaderIcon>
+      </div>)
+      }
+
+      {
+        paymentSuccessful && (<div className="bg-white shadow-md w-fit h-fit text-green p-5 rounded-md flex flex-col space-y-5 px-10 items-center justify-center">
+        <div className="flex justify-center items-center space-x-5">
+          <p>Success</p>
+          <CheckmarkIcon></CheckmarkIcon>
+        </div>
+        <p className="font-medium">You have successfully completed your transaction.</p>
+      </div>)
+      }
     </div>
   );
 };

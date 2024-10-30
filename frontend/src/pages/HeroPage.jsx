@@ -171,7 +171,7 @@ const HeroPage = () => {
           ></Card>
         </div>
       </div>
-      <div id="productCards" className="flex w-full items-center p-24 justify-between bg-blue bg-opacity-15 max-sm:flex-wrap max-sm:space-y-10 max-sm:px-5 max-sm:justify-center">
+      <div id="productCards" className="flex w-full items-center p-24 px-8 justify-evenly bg-blue bg-opacity-15 max-sm:flex-wrap max-sm:space-y-10 max-sm:px-5">
         <ProductCard
           title="Basic Plan"
           price="$45"

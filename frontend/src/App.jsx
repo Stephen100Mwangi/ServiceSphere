@@ -5,6 +5,8 @@ import HeroPage from "./pages/HeroPage"
 import PaymentDashboard from "./pages/PaymentDashboard"
 import Dashboard from "./pages/Dashboard"
 import Mpesa from "./pages/payments/Mpesa"
+import Paypal from './pages/payments/Paypal'
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -15,6 +17,7 @@ const App = () => {
       <Route path="/payment" element={<PaymentDashboard></PaymentDashboard>}></Route>
       <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
       <Route path="/payment/mpesa" element={<Mpesa></Mpesa>}></Route>
+      <Route path="/payment/paypal" element={<Paypal></Paypal>}></Route>
      </Routes>
     </BrowserRouter>
   )
