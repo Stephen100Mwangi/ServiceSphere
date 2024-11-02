@@ -17,7 +17,7 @@ const Dashboard = () => {
   return (
     <div
       id="dashboard"
-      className="w-full h-screen overflow-clip px-8 flex flex-col justify-center space-y-0 max-sm:h-fit max-sm:px-5"
+      className="w-full h-screen overflow-clip px-8 font-openSans flex flex-col justify-center space-y-0 max-sm:h-fit max-sm:px-5"
     >
       <Navbar></Navbar>
       <div className="h-screen grid grid-cols-6 gap-5 max-sm:flex max-sm:flex-col max-sm:gap-y-3">

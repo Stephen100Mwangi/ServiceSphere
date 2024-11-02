@@ -64,7 +64,7 @@ const HeroPage = () => {
         ></CustomButton>
       </div>
 
-      <div id="aboutUs" className="aboutUs h-screen p-8 flex flex-col space-y-28 bg-blue text-white max-sm:flex max-sm:flex-col max-sm:space-y-3 max-sm:px-5">
+      <div id="aboutUs" className="aboutUs h-screen p-8 flex flex-col space-y-28 bg-back text-black max-sm:flex max-sm:flex-col max-sm:space-y-3 max-sm:px-5">
         <h1 className="text-3xl font-bold text-center">
           About <span>Us</span>
         </h1>
@@ -85,7 +85,7 @@ const HeroPage = () => {
         </div>
       </div>
 
-      <div className="ourStory h-screen w-full p-8 px-12 bg-black bg-opacity-15 flex justify-between items-center max-sm:flex-col max-sm:space-y-6 max-sm:px-5">
+      <div className="ourStory h-screen w-full p-8 px-12 bg-back text-black flex justify-between items-center max-sm:flex-col max-sm:space-y-6 max-sm:px-5">
         <img src="./story.svg" loading="lazy" alt="" />
         <div className="flex flex-col w-1/2 h-auto space-y-10 max-sm:w-full">
           <h1 className="text-2xl font-bold leading-relaxed">Our Story</h1>
@@ -103,7 +103,7 @@ const HeroPage = () => {
         </div>
       </div>
 
-      <div className="ourStory h-fit w-full p-8 px-12 bg-blue bg-opacity-15 flex justify-between items-center max-sm:flex-col max-sm:px-5">
+      <div className="ourStory h-fit w-full p-8 px-12 bg-back text-black flex justify-between items-center max-sm:flex-col max-sm:px-5 max-sm:space-y-10">
         <div className="flex flex-col w-1/2 h-auto space-y-10 max-sm:w-full">
           <h1 className="text-2xl font-bold leading-relaxed">Our Team</h1>
           <p className="font-light text-[16px] leading-9">
@@ -126,7 +126,7 @@ const HeroPage = () => {
           ></ImageCard>
         </div>
       </div>
-      <div className="whyUs h-screen w-full flex flex-col space-y-8 p-10 bg-blue bg-opacity-15 text-black px-20 max-sm:px-5 max-sm:h-fit">
+      <div className="whyUs h-screen w-full flex flex-col space-y-8 p-10 bg-back text-black px-20 max-sm:px-5 max-sm:h-fit">
         <h1 className="font-bold text-3xl text-center">Why Us?</h1>
         <p className="text-xl font-medium text-center">
           Discover the Benefits of Partnering with Us
@@ -137,7 +137,7 @@ const HeroPage = () => {
           a platform designed to support your success at every step. Here&apos;s
           what makes us the best choice for you.
         </p>
-        <div className="flex w-full justify-between items-center max-sm:justify-center max-sm:space-y-5 max-sm:flex-wrap">
+        <div className="flex w-full justify-between items-center max-sm:justify-center max-sm:space-y-8 max-sm:flex-wrap">
           <Card
             title={"Reliable Clients Connections"}
             iconColor={"card"}
@@ -164,6 +164,7 @@ const HeroPage = () => {
           ></Card>
           <Card
             title={"Fair Commission Structure"}
+            iconColor={"other"}
             text={
               "Our commission structure is designed to be fair and transparent, ensuring you earn what you deserve. We value your hard work and strive to provide the best financial rewards for your efforts."
             }
@@ -171,7 +172,7 @@ const HeroPage = () => {
           ></Card>
         </div>
       </div>
-      <div id="productCards" className="flex w-full items-center p-24 px-8 justify-evenly bg-blue bg-opacity-15 max-sm:flex-wrap max-sm:space-y-10 max-sm:px-5">
+      <div id="productCards" className="flex w-full items-center p-24 px-8 justify-evenly bg-back text-black max-sm:flex-wrap max-sm:space-y-10 max-sm:px-5">
         <ProductCard
           title="Basic Plan"
           price="$45"
@@ -216,7 +217,7 @@ const HeroPage = () => {
         />
       </div>
 
-      <div id="footer" className="flex bg-card text-white flex-col space-y-20 w-full px-20 p-10 max-sm:px-5">
+      <div id="footer" className="flex bg-blue bg-opacity-15 text-black flex-col space-y-20 w-full px-20 p-10 max-sm:px-5">
         <div className="flex justify-evenly max-sm:flex-col max-sm:space-y-20 max-sm:justify-center max-sm:items-center">
             <div className="left flex flex-col space-y-5">
                 <p>Home</p>

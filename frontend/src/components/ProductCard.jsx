@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 const ProductCard = ({title,text,price,benefits,textColor,bgColor}) => {
   const navigate = useNavigate("");
   return (
-    <div className={`flex flex-col justify-center items-center shadow-xl p-2 py-8 max-sm:w-[90%] rounded-lg text-${textColor} bg-${bgColor}`}>
+    <div className={`flex flex-col justify-center bg-${bgColor} items-center shadow-2xl hover:shadow-2xl p-2 py-8 max-sm:w-[90%] rounded-lg text-${textColor}`}>
         <div className="title font-bold text-lg">{title}</div>
         <div className="title font-normal max-w-[80%] mb-14 mt-3 text-center mx-auto text-base">{text}</div>
         <div className="title font-bold text-xl">{price}</div>
