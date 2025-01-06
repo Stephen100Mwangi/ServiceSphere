@@ -2,4 +2,6 @@ frontend/node_modules
 frontend/.env
 server/.env
 server/node_modules
+sockets/node_modules
 .vscode/
+*/node_modules

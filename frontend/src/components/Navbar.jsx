@@ -11,9 +11,9 @@ const Navbar = () => {
       <p className="text-2xl text-white font-bold font-alata">ServiceSphere</p>
       <div className="flex text-white items-center justify-start gap-x-8 max-sm:hidden">
         <p>Home</p>
-        <p>About Us</p>
+        <a href="#aboutUs">About Us</a>
         <p>Community</p>
-        <p>Contacts</p>
+        <a href="#footer">Contacts</a>
         <Link to={"/personalPage"}>
           <FaUser></FaUser>
         </Link>
@@ -35,7 +35,10 @@ const Navbar = () => {
           <p>About Us</p>
           <p>Community</p>
           <p>Contacts</p>
-          <Link to={"/personalPage"} className="text-white font-light text-sm bg-card p-2 px-6">
+          <Link
+            to={"/personalPage"}
+            className="text-white font-light text-sm bg-card p-2 px-6"
+          >
             My Profile
           </Link>
         </div>

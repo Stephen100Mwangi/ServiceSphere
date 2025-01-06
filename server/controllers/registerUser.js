@@ -22,7 +22,7 @@ const registerUser = async (req, res) => {
   }
 
   if (!PASSWORD.test (password)) {
-    return res.start (400).json ({
+    return res.status (400).json ({
       message: 'Password must contain a minimum of 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character',
     });
   }
@@ -33,9 +33,9 @@ const registerUser = async (req, res) => {
       .json ({message: 'Please provide a valid email address'});
   }
 
-  if (!USERNAME.test (username)) {
-    return res.status (400).json ({message: 'Please provide a valid username'});
-  }
+  // if (!USERNAME.test (username)) {
+  //   return res.status (400).json ({message: 'Please provide a valid username'});
+  // }
 
   try {
     // Check for existing user by email or username

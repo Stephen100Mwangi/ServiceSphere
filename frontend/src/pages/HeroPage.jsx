@@ -1,3 +1,5 @@
+import toast, { Toaster } from "react-hot-toast";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Button from "../components/Button";
 import CustomButton from "../components/CustomButton";
@@ -10,8 +12,47 @@ import { FaBriefcase, FaFacebook, FaInstagram, FaX } from "react-icons/fa6";
 import ProductCard from "../components/ProductCard";
 
 const HeroPage = () => {
+  const [email, setEmail] = useState("");
+  const [usersCount, setUsersCount] = useState(0);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await fetch("http://localhost:4500/users");
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.status("Failed to fetch users");
+      }
+
+      setUsersCount(data.usersFound.length);
+    };
+
+    fetchUsers();
+  }, []);
+  const sendSubscription = async () => {
+    if (!email) {
+      toast.error("You must provide an email address");
+      return;
+    }
+    const response = await fetch("http://localhost:4500/subscribe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      toast.error(data.message || "Error sending subscription");
+      return;
+    }
+
+    toast.success("Subscription successful");
+  };
   return (
     <div className="h-fit w-full justify-center overflow-clip bg-back">
+      <Toaster position={"top-left"}></Toaster>
       <div id="heroPage" className="heroPage h-screen w-full relative">
         <Navbar></Navbar>
         <img
@@ -27,18 +68,18 @@ const HeroPage = () => {
           <div className="font-light text-[16px] leading-9 max-sm:text-white max-w-[90%]">
             Join a vibrant community where you can connect with clients,
             showcase your unique projects, and earn commissions for delivering
-            exceptional services. Whether you&apos;re a freelancer, a startup, or a
-            seasoned professional, our platform empowers you to turn your
+            exceptional services. Whether you&apos;re a freelancer, a startup,
+            or a seasoned professional, our platform empowers you to turn your
             passion into profit.
           </div>
-        
+
           <Button link={"https://www.dkut.ac.ke/"} text={"Learn More"}></Button>
         </div>
 
         <div className="absolute bottom-20 right-10 z-[1000] flex justify-center items-center space-x-5 max-sm:bottom-2 max-sm:right-4">
           <div className="members px-4 py-2 flex justify-center max-sm:w-auto flex-col items-center text-center space-y-4 bg-card text-white rounded-lg">
             <p className="text-lg font-medium max-sm:text-base max-sm:font-semibold">
-              150+
+              {usersCount}+
             </p>
             <p className="font-light text-base max-sm:text-sm">Members</p>
           </div>
@@ -64,7 +105,10 @@ const HeroPage = () => {
         ></CustomButton>
       </div>
 
-      <div id="aboutUs" className="aboutUs h-screen p-8 flex flex-col space-y-28 bg-back text-black max-sm:flex max-sm:flex-col max-sm:space-y-3 max-sm:px-5">
+      <div
+        id="aboutUs"
+        className="aboutUs h-screen p-8 flex flex-col space-y-28 bg-back text-black max-sm:flex max-sm:flex-col max-sm:space-y-3 max-sm:px-5"
+      >
         <h1 className="text-3xl font-bold text-center">
           About <span>Us</span>
         </h1>
@@ -132,10 +176,11 @@ const HeroPage = () => {
           Discover the Benefits of Partnering with Us
         </p>
         <p className="text-base font-light text-center leading-9">
-          At <span className="text-green font-bold">ServiceSphere</span>, we understand the challenges of finding
-          the right opportunities and clients. That&apos; why we&apos;ve created
-          a platform designed to support your success at every step. Here&apos;s
-          what makes us the best choice for you.
+          At <span className="text-green font-bold">ServiceSphere</span>, we
+          understand the challenges of finding the right opportunities and
+          clients. That&apos; why we&apos;ve created a platform designed to
+          support your success at every step. Here&apos;s what makes us the best
+          choice for you.
         </p>
         <div className="flex w-full justify-between items-center max-sm:justify-center max-sm:space-y-8 max-sm:flex-wrap">
           <Card
@@ -172,7 +217,10 @@ const HeroPage = () => {
           ></Card>
         </div>
       </div>
-      <div id="productCards" className="flex w-full items-center p-24 px-8 justify-evenly bg-back text-black max-sm:flex-wrap max-sm:space-y-10 max-sm:px-5">
+      <div
+        id="productCards"
+        className="flex w-full items-center p-24 px-8 justify-evenly bg-back text-black max-sm:flex-wrap max-sm:space-y-10 max-sm:px-5"
+      >
         <ProductCard
           title="Basic Plan"
           price="$45"
@@ -217,30 +265,43 @@ const HeroPage = () => {
         />
       </div>
 
-      <div id="footer" className="flex bg-blue bg-opacity-15 text-black flex-col space-y-20 w-full px-20 p-10 max-sm:px-5">
+      <div
+        id="footer"
+        className="flex bg-blue bg-opacity-15 text-black flex-col space-y-20 w-full px-20 p-10 max-sm:px-5"
+      >
         <div className="flex justify-evenly max-sm:flex-col max-sm:space-y-20 max-sm:justify-center max-sm:items-center">
-            <div className="left flex flex-col space-y-5">
-                <p>Home</p>
-                <p>About</p>
-                <p>Community</p>
-                <p>Why Us</p>
-            </div>
-            <div className="left flex flex-col space-y-5 max-sm:flex-row max-sm:space-x-20 max-sm:space-y-0">
-                <FaFacebook></FaFacebook>
-                <FaX></FaX>
-                <FaInstagram></FaInstagram>
-            </div>
-            <div className="left flex flex-col space-y-5">
-                <a href="tel:+254758725032">0758725032</a>
-                <a href="mailto:mwangiwahome70@gmail.com">Email Us</a>
+          <div className="left flex flex-col space-y-5">
+            <p>Home</p>
+            <p>About</p>
+            <p>Community</p>
+            <p>Why Us</p>
+          </div>
+          <div className="left flex flex-col space-y-5 max-sm:flex-row max-sm:space-x-20 max-sm:space-y-0">
+            <FaFacebook></FaFacebook>
+            <FaX></FaX>
+            <FaInstagram></FaInstagram>
+          </div>
+          <div className="left flex flex-col space-y-5">
+            <a href="tel:+254758725032">0758725032</a>
+            <a href="mailto:mwangiwahome70@gmail.com">Email Us</a>
 
-                <div className="flex rounded-full text-black justify-between w-[280px] items-center p-3 px-8 bg-white">
-                    <input type="text" className="outline-none border-none text-sm" name="" id="" placeholder="Subscribe to our Newsletter"/>
-                    <IoSend></IoSend>
-                </div>
+            <div className="flex rounded-full text-black justify-between w-[280px] items-center p-3 px-8 bg-white">
+              <input
+                type="text"
+                className="outline-none border-none text-sm"
+                name=""
+                id=""
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Subscribe to our Newsletter"
+              />
+              <IoSend onClick={sendSubscription}></IoSend>
             </div>
+          </div>
         </div>
-        <div className="copy text-center">Copyright All Rights Reserved 2024 </div>
+        <div className="copy text-center">
+          Copyright All Rights Reserved 2024{" "}
+        </div>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Navbar from "../components/Navbar";
 import Connect from "../components/Connect";
 import ProjectCard from "../components/ProjectCard";
@@ -10,10 +11,50 @@ import { RiLogoutCircleLine } from "react-icons/ri";
 import { GoInfo } from "react-icons/go";
 import { FaEye } from "react-icons/fa";
 import { LuCopyright } from "react-icons/lu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
 const Dashboard = () => {
-  const [showInfo,setShowInfo] = useState(false)
+  const [showInfo, setShowInfo] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState({});
+
+  useEffect(() => {
+    const token = localStorage.getItem("serviceToken");
+
+    if (!token) {
+      setIsAuthenticated(false);
+      return;
+    }
+
+    // Check if token is valid
+    try {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+
+      if (decodedToken.exp < currentTime) {
+        localStorage.removeItem("serviceToken");
+        localStorage.removeItem("serviceUser");
+        setIsAuthenticated(false);
+        return;
+      }
+
+      const storedUser = localStorage.getItem("serviceUser");
+      if (storedUser) {
+        const parsedUser = JSON.parse(storedUser);
+        setLoggedInUser(parsedUser);
+        setIsAuthenticated(true);
+      }
+    } catch (error) {
+      console.error("Token validation error:", error);
+      setIsAuthenticated(false);
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   const fetchUserDetails
+
+  // }, [isAuthenticated,loggedInUser])
   return (
     <div
       id="dashboard"
@@ -28,7 +69,7 @@ const Dashboard = () => {
               alt=""
               className="size-12 object-cover rounded-full"
             />
-            <p className="text-base font-bold">John Doe</p>
+            <p className="text-base font-bold">{loggedInUser?.name}</p>
           </div>
           <div className="flex items-center justify-between">
             <div className="title flex space-x-5 items-center justify-start">
@@ -142,40 +183,70 @@ const Dashboard = () => {
           ></ProjectCard>
         </div>
         <div className="rounded-lg relative col-span-2 h-[calc(100vh-150px)] flex flex-col space-y-5 justify-start items-center p-2 py-5 overflow-scroll overflow-x-hidden noScrollbar bg-gray z-[1000] max-sm:hidden">
-            <div className="flex justify-between w-[90%] mx-auto">
-                <p>Expand Your network</p>
-                <GoInfo className="cursor-pointer" onClick={()=>setShowInfo(prev => !prev)}></GoInfo>
+          <div className="flex justify-between w-[90%] mx-auto">
+            <p>Expand Your network</p>
+            <GoInfo
+              className="cursor-pointer"
+              onClick={() => setShowInfo((prev) => !prev)}
+            ></GoInfo>
+          </div>
+          <div className="w-[90%] flex flex-col space-y-3">
+            <Connect
+              role={"Plumber"}
+              image={"./person.jpg"}
+              name={"Steve Mwangi"}
+            ></Connect>
+            <Connect
+              role={"Plumber"}
+              image={"./person.jpg"}
+              name={"Steve Mwangi"}
+            ></Connect>
+            <Connect
+              role={"Plumber"}
+              image={"./person.jpg"}
+              name={"Steve Mwangi"}
+            ></Connect>
+            <Connect
+              role={"Plumber"}
+              image={"./person.jpg"}
+              name={"Steve Mwangi"}
+            ></Connect>
+            <Connect
+              role={"Plumber"}
+              image={"./person.jpg"}
+              name={"Steve Mwangi"}
+            ></Connect>
+          </div>
+          {showInfo && (
+            <p className="p-2 rounded-md left-5 w-[80%] z-[1200] bg-back text-sm font-light absolute top-5">
+              Expand your network by connecting with other people. This will
+              allow you to view more jobs and get more potential clients
+            </p>
+          )}
+          <div className="bg-back text-sm w-[90%] font-thin flex justify-between p-2 items-center rounded-lg">
+            <p>View All Recommendations</p>
+            <FaEye></FaEye>
+          </div>
+          <img
+            src="./customers.jpg"
+            className="w-[90%] h-56 object-cover rounded-md mx-auto"
+            alt=""
+          />
+          <footer className="flex justify-center items-center flex-col my-5 space-y-3 text-sm w-[90%]">
+            <ul className="flex justify-evenly w-full text-sm font-normal">
+              <li>Home</li>
+              <li>About Us</li>
+              <li>Contacts</li>
+              <li>Our Partners</li>
+            </ul>
+            <div className="flex justify-between w-full mx-auto">
+              <div>ServiceSphere 2024</div>
+              <div className="flex items-center space-x-3 justify-center">
+                <LuCopyright></LuCopyright>
+                <p>All Rights Reserved</p>
+              </div>
             </div>
-            <div className="w-[90%] flex flex-col space-y-3">
-                <Connect role={"Plumber"} image={"./person.jpg"} name={"Steve Mwangi"}></Connect>
-                <Connect role={"Plumber"} image={"./person.jpg"} name={"Steve Mwangi"}></Connect>
-                <Connect role={"Plumber"} image={"./person.jpg"} name={"Steve Mwangi"}></Connect>
-                <Connect role={"Plumber"} image={"./person.jpg"} name={"Steve Mwangi"}></Connect>
-                <Connect role={"Plumber"} image={"./person.jpg"} name={"Steve Mwangi"}></Connect>
-            </div>
-            {
-              showInfo && (<p className="p-2 rounded-md left-5 w-[80%] z-[1200] bg-back text-sm font-light absolute top-5">Expand your network by connecting with other people. This will allow you to view more jobs and get more  potential clients</p>)
-            }
-            <div className="bg-back text-sm w-[90%] font-thin flex justify-between p-2 items-center rounded-lg">
-                <p>View All Recommendations</p>
-                <FaEye></FaEye>
-            </div>
-            <img src="./customers.jpg" className="w-[90%] h-56 object-cover rounded-md mx-auto" alt="" />
-            <footer className="flex justify-center items-center flex-col my-5 space-y-3 text-sm w-[90%]">
-                <ul className="flex justify-evenly w-full text-sm font-normal">
-                    <li>Home</li>
-                    <li>About Us</li>
-                    <li>Contacts</li>
-                    <li>Our Partners</li>
-                </ul>
-                <div className="flex justify-between w-full mx-auto">
-                    <div>ServiceSphere 2024</div>
-                    <div className="flex items-center space-x-3 justify-center">
-                        <LuCopyright></LuCopyright>
-                        <p>All Rights Reserved</p>
-                    </div>
-                </div>
-            </footer>
+          </footer>
         </div>
       </div>
     </div>
