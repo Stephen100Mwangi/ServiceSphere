@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Navbar from "../components/Navbar";
 import Connect from "../components/Connect";
 import ProjectCard from "../components/ProjectCard";
@@ -11,50 +10,20 @@ import { RiLogoutCircleLine } from "react-icons/ri";
 import { GoInfo } from "react-icons/go";
 import { FaEye } from "react-icons/fa";
 import { LuCopyright } from "react-icons/lu";
-import { useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
+import { useState, useEffect } from "react";
 
 const Dashboard = () => {
   const [showInfo, setShowInfo] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState({});
 
   useEffect(() => {
-    const token = localStorage.getItem("serviceToken");
-
-    if (!token) {
-      setIsAuthenticated(false);
-      return;
-    }
-
-    // Check if token is valid
-    try {
-      const decodedToken = jwtDecode(token);
-      const currentTime = Date.now() / 1000;
-
-      if (decodedToken.exp < currentTime) {
-        localStorage.removeItem("serviceToken");
-        localStorage.removeItem("serviceUser");
-        setIsAuthenticated(false);
-        return;
-      }
-
-      const storedUser = localStorage.getItem("serviceUser");
-      if (storedUser) {
-        const parsedUser = JSON.parse(storedUser);
-        setLoggedInUser(parsedUser);
-        setIsAuthenticated(true);
-      }
-    } catch (error) {
-      console.error("Token validation error:", error);
-      setIsAuthenticated(false);
+    const user = localStorage.getItem("serviceUser");
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      setLoggedInUser(parsedUser);
     }
   }, []);
 
-  // useEffect(() => {
-  //   const fetchUserDetails
-
-  // }, [isAuthenticated,loggedInUser])
   return (
     <div
       id="dashboard"
@@ -69,7 +38,7 @@ const Dashboard = () => {
               alt=""
               className="size-12 object-cover rounded-full"
             />
-            <p className="text-base font-bold">{loggedInUser?.name}</p>
+            <p className="text-base font-bold">{loggedInUser?.username}</p>
           </div>
           <div className="flex items-center justify-between">
             <div className="title flex space-x-5 items-center justify-start">

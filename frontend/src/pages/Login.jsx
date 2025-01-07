@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import toast, { Toaster } from "react-hot-toast";
 import Loading from "../components/Loading";
-// import { setAuthToken } from "../../../server/utils/authUtils";
+import { setAuthToken } from "../../../server/utils/authUtils";
 import axios from "axios";
 
 const Login = () => {
@@ -41,7 +41,9 @@ const Login = () => {
 
       if (response.ok) {
         // Set the auth token in local storage and axios headers
-        // setAuthToken(data.token);
+        setAuthToken(data.token);
+        // localStorage.setItem("serviceUser", JSON.stringify(data.user));
+        localStorage.setItem("serviceToken", data.token);
         localStorage.setItem("serviceUser", JSON.stringify(data.user));
 
         toast.success("User login successful");
@@ -65,7 +67,7 @@ const Login = () => {
       <img src="./welcome.svg" alt="" className="h-auto scale-90" />
       <form className="py-9 px-4 flex flex-col h-auto gap-y-6 bg-gray rounded-lg">
         <div className="flex flex-col p-2.5 space-y-1.5">
-          <label htmlFor="confirmPassword">Confirm Password</label>
+          <label htmlFor="email">Email</label>
           <input
             className="py-2 pl-3 pr-4 outline-none"
             type="email"

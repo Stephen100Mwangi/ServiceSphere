@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import HeroPage from "./pages/HeroPage";
@@ -23,11 +24,6 @@ const App = () => {
     data-sdk-integration-source="button-factory"
   ></script>;
 
-  const user = JSON.parse(localStorage.getItem("serviceUser"));
-  console.log(user);
-
-  // const userFound = JSON.parse(user);
-
   return (
     <PayPalScriptProvider options={initialOptions}>
       <BrowserRouter>
@@ -36,17 +32,60 @@ const App = () => {
           <Route path="/login" element={<Login></Login>}></Route>
           <Route
             path="/"
-            element={user ? <HeroPage></HeroPage> : <Login></Login>}
+            element={
+              <ProtectedRoute>
+                <HeroPage></HeroPage>
+              </ProtectedRoute>
+            }
           ></Route>
           <Route
             path="/payment"
-            element={<PaymentDashboard></PaymentDashboard>}
+            element={
+              <ProtectedRoute>
+                <PaymentDashboard></PaymentDashboard>
+              </ProtectedRoute>
+            }
           ></Route>
-          <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
-          <Route path="/payment/mpesa" element={<Mpesa></Mpesa>}></Route>
-          <Route path="/payment/paypal" element={<Paypal></Paypal>}></Route>
-          <Route path="/personalPage" element={<Projects></Projects>}></Route>
-          <Route path="/chat" element={<Chat></Chat>}></Route>
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard></Dashboard>
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/payment/mpesa"
+            element={
+              <ProtectedRoute>
+                <Mpesa></Mpesa>
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/payment/paypal"
+            element={
+              <ProtectedRoute>
+                <Paypal></Paypal>
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/personalPage"
+            element={
+              <ProtectedRoute>
+                <Projects></Projects>
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/chat"
+            element={
+              <ProtectedRoute>
+                <Chat></Chat>
+              </ProtectedRoute>
+            }
+          ></Route>
           <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
         </Routes>
       </BrowserRouter>

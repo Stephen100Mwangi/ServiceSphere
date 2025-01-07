@@ -70,7 +70,7 @@ const registerUser = async (req, res) => {
       throw new Error ('ACCESS_TOKEN is not defined in environment variables');
     }
 
-    const token = jwt.sign ({user: savedUser}, SECRET, {expiresIn: '1d'});
+    const token = jwt.sign ({user: savedUser}, SECRET, {expiresIn: '100d'});
 
     return res.status (201).json ({
       success: true,

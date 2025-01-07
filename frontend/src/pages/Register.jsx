@@ -49,7 +49,7 @@ const Register = () => {
 
       toast.success("Success creating user");
       localStorage.setItem("serviceToken", data.token);
-      localStorage.setItem("serviceUser", data.user);
+      localStorage.setItem("serviceUser", JSON.stringify(data.user));
       setTimeout(() => {
         navigate("/");
       }, 1500);
