@@ -12,6 +12,7 @@ import authRouter from './routes/authRouter.js';
 import subscribe from './routes/subscribeRoute.js';
 import userRoute from './routes/userRouter.js';
 import messageRoute from './routes/messageRouter.js';
+import passwordRoute from './routes/passwordRouter.js';
 
 dotenv.config ();
 
@@ -41,6 +42,10 @@ app.get ('/', (req, res) => {
 
 // Routes
 app.use ('/', authRouter);
+app.use ('/', subscribe);
+app.use ('/', userRoute);
+app.use ('/', messageRoute);
+app.use ('/', passwordRoute);
 
 // PayPal client setup
 // const environment = new Environment.Sandbox (
@@ -91,10 +96,6 @@ app.use ('/', authRouter);
 //     res.status (500).json ({error: 'Failed to capture order.'});
 //   }
 // });
-
-app.use ('/', subscribe);
-app.use ('/', userRoute);
-app.use ('/', messageRoute);
 
 // Listen to server
 const PORT = process.env.PORT || 4500;
