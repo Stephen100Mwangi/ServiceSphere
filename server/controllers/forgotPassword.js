@@ -1,8 +1,8 @@
-import bcrypt from 'bcrypt';
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 
+// Configure Nodemailer transporter
 const transporter = nodemailer.createTransport ({
   service: 'gmail',
   auth: {
@@ -11,33 +11,52 @@ const transporter = nodemailer.createTransport ({
   },
 });
 
+// Verify SMTP connection
+transporter.verify ((error, success) => {
+  if (error) {
+    console.error ('SMTP Connection Error:', error);
+  } else {
+    console.log ('SMTP Server Ready:', success);
+  }
+});
 
 const forgotPassword = async (req, res) => {
   try {
-    const email = req.body;
+    const {email} = req.body;
+
     if (!email) {
-      return res.status (400).json ({message: 'Email field is required'});
+      return res.status (400).json ({message: 'Email field is required.'});
     }
 
-    // Check that user exists in the database
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test (email)) {
+      return res.status (400).json ({message: 'Invalid email format.'});
+    }
+
+    // Check if the user exists in the database
     const userExists = await User.findOne ({email});
     if (!userExists) {
-      return res.status (404).json ({message: 'User not found'});
+      return res.status (404).json ({message: 'User not found.'});
     }
 
     // Generate a reset token
     const resetToken = jwt.sign (
       {userId: userExists.id},
-      process.env.RESET_TOKEN_SECRET,
+      process.env.JWT_RESET_SECRET,
       {expiresIn: '15m'}
     );
 
+    userExists.resetPasswordToken = resetToken;
+    userExists.resetPasswordExpires = Date.now () + 15 * 60 * 1000; // 15 minutes
+    await userExists.save ();
+
     // Create a reset password link
-    const resetUrl = `${process.env.FRONTEND_URL}/resetPassword?token=${resetToken}`;
+    const resetUrl = `${process.env.FRONTEND_URL}/reset?token=${resetToken}`;
 
     // Send the user an email
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: `"ServiceSphere Team" <${process.env.EMAIL_USERNAME}>`, // Professional sender name
       to: email,
       subject: 'Password Reset Request',
       html: `
@@ -46,20 +65,25 @@ const forgotPassword = async (req, res) => {
         <p>Please click the link below to reset your password:</p>
         <a href="${resetUrl}">${resetUrl}</a>
         <p>This link will expire in 15 minutes.</p>
-        <p>If you didn't request this, please ignore this email.</p>
-        <p>Thank you for using our service.</p>
+        <p>If you didn't request this, please ignore this email or contact support.</p>
         <br>
         <p>Best regards,</p>
         <p>The ServiceSphere Team</p>
       `,
+      replyTo: process.env.EMAIL_USERNAME, // Reply-to address
+      headers: {
+        'X-Entity-Ref-ID': `${userExists.id}`, // Custom header for tracking
+      },
     };
 
     await transporter.sendMail (mailOptions);
-    res.status (200).json ({message: 'Email sent successfully'});
+    res.status (200).json ({
+      message: 'Email sent successfully. Navigate to your email to reset your password.',
+    });
   } catch (error) {
     console.error ('Forgot password error:', error);
     res.status (500).json ({
-      message: 'Error processing password reset request',
+      message: 'An error occurred while processing your password reset request.',
     });
   }
 };

@@ -10,7 +10,9 @@ import Paypal from "./pages/payments/Paypal";
 import Projects from "./pages/personal/Projects";
 import PageNotFound from "./pages/404";
 import Chat from "./pages/Chat";
+import ForgotPassword from "./pages/ForgotPassword";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import ResetPassword from "./components/ResetPassword";
 
 const App = () => {
   const initialOptions = {
@@ -87,6 +89,11 @@ const App = () => {
             }
           ></Route>
           <Route path="*" element={<PageNotFound></PageNotFound>}></Route>
+          <Route
+            path="/forgot"
+            element={<ForgotPassword></ForgotPassword>}
+          ></Route>
+          <Route path="/reset" element={<ResetPassword></ResetPassword>}></Route>
         </Routes>
       </BrowserRouter>
     </PayPalScriptProvider>

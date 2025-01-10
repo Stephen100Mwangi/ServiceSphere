@@ -1,6 +1,7 @@
+import dotenv from 'dotenv';
+dotenv.config ();
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import authRouter from './routes/authRouter.js';
 // import {
@@ -13,8 +14,6 @@ import subscribe from './routes/subscribeRoute.js';
 import userRoute from './routes/userRouter.js';
 import messageRoute from './routes/messageRouter.js';
 import passwordRoute from './routes/passwordRouter.js';
-
-dotenv.config ();
 
 // Create app
 const app = express ();

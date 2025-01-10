@@ -40,7 +40,7 @@ const loginUser = async (req, res) => {
     }
 
     // Sign the token
-    const token = jwt.sign ({user: savedUser}, SECRET, {expiresIn: '1d'});
+    const token = jwt.sign ({user: savedUser}, SECRET, {expiresIn: '100d'});
 
     // Return success response
     return res.status (200).json ({

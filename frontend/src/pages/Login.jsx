@@ -1,11 +1,9 @@
-/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import toast, { Toaster } from "react-hot-toast";
 import Loading from "../components/Loading";
 import { setAuthToken } from "../../../server/utils/authUtils";
-import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -34,12 +32,17 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
+        // Check if we received the expected data
+        if (!data.token || !data.user) {
+          throw new Error("Invalid response format from server");
+        }
         // Set the auth token in local storage and axios headers
         setAuthToken(data.token);
         // localStorage.setItem("serviceUser", JSON.stringify(data.user));
