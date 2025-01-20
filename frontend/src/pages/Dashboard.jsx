@@ -11,8 +11,10 @@ import { GoInfo } from "react-icons/go";
 import { FaEye } from "react-icons/fa";
 import { LuCopyright } from "react-icons/lu";
 import { useState, useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const Dashboard = () => {
+  const [projects, setProjects] = useState([]);
   const [showInfo, setShowInfo] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState({});
 
@@ -24,11 +26,41 @@ const Dashboard = () => {
     }
   }, []);
 
+  const logOut = () => {
+    localStorage.removeItem("serviceToken");
+    localStorage.removeItem("serviceUser");
+    window.location.replace("/login");
+  };
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const response = await fetch("http://localhost:4500/projects", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("serviceToken")}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data.message || "Failed to fetch projects");
+        return;
+      }
+
+      setProjects(data.projects);
+    };
+
+    fetchProjects();
+  }, []);
+
   return (
     <div
       id="dashboard"
       className="w-full h-screen overflow-clip px-8 font-openSans flex flex-col justify-center space-y-0 max-sm:h-fit max-sm:px-5"
     >
+      <Toaster position="top-left"></Toaster>
       <Navbar></Navbar>
       <div className="h-screen grid grid-cols-6 gap-5 max-sm:flex max-sm:flex-col max-sm:gap-y-3">
         <div className="rounded-lg col-span-1 flex flex-col space-y-6 h-[calc(100vh-150px)] bg-gray z-[1000] p-2 py-5 max-sm:hidden max-lg:hidden max-xl:hidden">
@@ -80,76 +112,23 @@ const Dashboard = () => {
               <p>Notifications</p>
             </div>
           </div>
-          <div className="flex items-center justify-start text-red-600 space-x-5 absolute bottom-10">
+          <div
+            onClick={logOut}
+            className="flex items-center justify-start text-red-600 space-x-5 absolute bottom-10"
+          >
             <RiLogoutCircleLine></RiLogoutCircleLine>
             <p>Log Out</p>
           </div>
         </div>
         <div className="rounded-lg flex flex-col space-y-10 justify-start col-span-3 items-start h-[calc(100vh-150px)] overflow-scroll overflow-x-hidden noScrollbar bg-gray z-[1000] max-sm:z-[800] max-sm:h-[calc(100vh-120px)] max-lg:col-span-4">
-          <ProjectCard
-            sender={"Joe M"}
-            likes={"11 Likes and  8 reposts"}
-            profile={"./bike.jpg"}
-            career={"Mechanical Engineer"}
-            time={"1 week ago"}
-            name={"Joe M"}
-            image={"./bike.jpg"}
-            impressions={"Alex M and 18 others "}
-            text={
-              "Petroleum based energy is often revealing is ugly face.Environmental hazards, Health complications, unreliability due to its nonrenewable state...But the catch is here. The future is bright in the EV way. Explore this ingenious innovation."
-            }
-            title={
-              "Amazing Innovation: Electric Powered bike that is as efficient as you could imagine"
-            }
-          ></ProjectCard>
-          <ProjectCard
-            sender={"Joe M"}
-            likes={"11 Likes and  8 reposts"}
-            profile={"./bike.jpg"}
-            career={"Mechanical Engineer"}
-            time={"1 week ago"}
-            name={"Joe M"}
-            image={"./bike.jpg"}
-            impressions={"Alex M and 18 others "}
-            text={
-              "Petroleum based energy is often revealing is ugly face.Environmental hazards, Health complications, unreliability due to its nonrenewable state...But the catch is here. The future is bright in the EV way. Explore this ingenious innovation."
-            }
-            title={
-              "Amazing Innovation: Electric Powered bike that is as efficient as you could imagine"
-            }
-          ></ProjectCard>
-          <ProjectCard
-            sender={"Joe M"}
-            likes={"11 Likes and  8 reposts"}
-            profile={"./bike.jpg"}
-            career={"Mechanical Engineer"}
-            time={"1 week ago"}
-            name={"Joe M"}
-            image={"./bike.jpg"}
-            impressions={"Alex M and 18 others "}
-            text={
-              "Petroleum based energy is often revealing is ugly face.Environmental hazards, Health complications, unreliability due to its nonrenewable state...But the catch is here. The future is bright in the EV way. Explore this ingenious innovation."
-            }
-            title={
-              "Amazing Innovation: Electric Powered bike that is as efficient as you could imagine"
-            }
-          ></ProjectCard>
-          <ProjectCard
-            sender={"Joe M"}
-            likes={"11 Likes and  8 reposts"}
-            profile={"./bike.jpg"}
-            career={"Mechanical Engineer"}
-            time={"1 week ago"}
-            name={"Joe M"}
-            image={"./bike.jpg"}
-            impressions={"Alex M and 18 others "}
-            text={
-              "Petroleum based energy is often revealing is ugly face.Environmental hazards, Health complications, unreliability due to its nonrenewable state...But the catch is here. The future is bright in the EV way. Explore this ingenious innovation."
-            }
-            title={
-              "Amazing Innovation: Electric Powered bike that is as efficient as you could imagine"
-            }
-          ></ProjectCard>
+          {projects.map((eachProject) => (
+            <ProjectCard
+              key={eachProject.id}
+              title={eachProject.title}
+              text={eachProject.description}
+              image={"bike.jpg"}
+            ></ProjectCard>
+          ))}
         </div>
         <div className="rounded-lg relative col-span-2 h-[calc(100vh-150px)] flex flex-col space-y-5 justify-start items-center p-2 py-5 overflow-scroll overflow-x-hidden noScrollbar bg-gray z-[1000] max-sm:hidden">
           <div className="flex justify-between w-[90%] mx-auto">

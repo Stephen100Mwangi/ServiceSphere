@@ -45,7 +45,6 @@ const Login = () => {
         }
         // Set the auth token in local storage and axios headers
         setAuthToken(data.token);
-        // localStorage.setItem("serviceUser", JSON.stringify(data.user));
         localStorage.setItem("serviceToken", data.token);
         localStorage.setItem("serviceUser", JSON.stringify(data.user));
 

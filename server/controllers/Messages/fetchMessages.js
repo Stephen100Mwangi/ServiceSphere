@@ -1,7 +1,7 @@
 import Message from '../../models/Message.js';
 import User from '../../models/User.js';
 
-const fetchMessages = async (req, res) => {
+const fetchMessages = async (req, res,next) => {
   const {sender, receiver} = req.params;
 
   if (!sender || !receiver) {

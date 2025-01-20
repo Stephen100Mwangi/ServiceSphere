@@ -10,9 +10,9 @@ const Navbar = () => {
       {/* <p className="text-card text-[28px] font-bold">ServiceSphere</p> */}
       <p className="text-2xl text-white font-bold font-alata">ServiceSphere</p>
       <div className="flex text-white items-center justify-start gap-x-8 max-sm:hidden">
-        <p>Home</p>
+        <p href="#home">Home</p>
         <a href="#aboutUs">About Us</a>
-        <p>Community</p>
+        <Link to={"/chat"}>Community</Link>
         <a href="#footer">Contacts</a>
         <Link to={"/personalPage"}>
           <FaUser></FaUser>

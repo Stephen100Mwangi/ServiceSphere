@@ -14,6 +14,7 @@ import subscribe from './routes/subscribeRoute.js';
 import userRoute from './routes/userRouter.js';
 import messageRoute from './routes/messageRouter.js';
 import passwordRoute from './routes/passwordRouter.js';
+import projectRoute from './routes/projectsRouter.js';
 
 // Create app
 const app = express ();
@@ -45,6 +46,7 @@ app.use ('/', subscribe);
 app.use ('/', userRoute);
 app.use ('/', messageRoute);
 app.use ('/', passwordRoute);
+app.use ('/', projectRoute);
 
 // PayPal client setup
 // const environment = new Environment.Sandbox (

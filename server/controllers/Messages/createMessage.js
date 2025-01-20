@@ -1,7 +1,7 @@
 import Message from '../../models/Message.js';
 import User from '../../models/User.js';
 
-const createMessage = async (req, res) => {
+const createMessage = async (req, res,next) => {
   const {sender, receiver, receiverName, senderName, message} = req.body;
 
   if (!sender || !receiver || !receiverName || !senderName || !message) {
